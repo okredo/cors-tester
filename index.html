@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script>
+function initElement() {
+  var p = document.getElementById("foo");
+  p.onclick = showAlert;
+};
+
+function showAlert() {
+  var url_element = document.getElementById("url");
+  var url = url_element.value;
+  alert("URL is: " + url);
+  
+  // Simple response handling
+  fetch(url, {'mode': 'cors'}).then(function(response) {
+  
+  // Examine the text in the response
+      response.text().then(function(responseText) {
+        alert(responseText);
+      });
+  }).catch(function(err) {
+   alert('Fetch Error : ' + Error(err));	
+  });
+
+}
+</script>
+<style>
+#foo {
+  border: solid blue 2px;
+}
+</style>
+</head>
+
+<body onload="initElement();">
+
+<!-- Form Name -->
+<legend>CORS Tester</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="textinput-0">URL Input</label>
+  <div class="controls">
+    <input id="url" name="url" placeholder="enter url to send request to here" class="input-xlarge" type="text">
+    <p class="help-block">(enter the URL for an XHR request)</p>
+  </div>
+</div>
+
+<!-- Button -->
+<span id="foo">Do the XHR Request!</span>
+<p>click on the above.</p>
+</body>
+</html>
